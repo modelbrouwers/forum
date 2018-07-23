@@ -5,11 +5,17 @@ version: '3.4'
 services:
   db:
     image: mysql:5.7
+    environment:
+      - MYSQL_ROOT_PASSWORD=supersecret
     volumes:
       - mysql_data:/var/lib/mysql
   web:
     build:
       context: ./
+    volumes:
+      - ./phpBB3:/var/www/html/phpBB3
+    ports:
+      - 80:80
     depends_on:
       - db
 
