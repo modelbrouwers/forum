@@ -9,6 +9,10 @@ services:
       - MYSQL_ROOT_PASSWORD=supersecret
     volumes:
       - mysql_data:/var/lib/mysql
+
+  memcached:
+    image: memcached:1.5-alpine
+
   web:
     build:
       context: ./
@@ -26,11 +30,15 @@ services:
       - DJANGO_DB_PASSWORD=${DJANGO_DB_PASSWORD:-brouwers}
     volumes:
       - ./phpBB3:/var/www/html/phpBB3
-      - ${DJANGO_PHPBB_ROOT}/includes/auth/auth_django.php:/var/www/html/phpBB3/includes/auth/auth_django.php
-      - ${DJANGO_PHPBB_ROOT}/includes/auth/getdjangouser.php:/var/www/html/phpBB3/includes/auth/getdjangouser.php
-      - ${DJANGO_PHPBB_ROOT}/styles/subsilver2_dead_topics:/var/www/html/phpBB3/styles/subsilver2_dead_topics
+      - ${INTEGRATION_ROOT}/phpBB3/includes/auth/auth_django.php:/var/www/html/phpBB3/includes/auth/auth_django.php
+      - ${INTEGRATION_ROOT}/phpBB3/includes/auth/getdjangouser.php:/var/www/html/phpBB3/includes/auth/getdjangouser.php
+      - ${INTEGRATION_ROOT}/phpBB3/styles/subsilver2_dead_topics:/var/www/html/phpBB3/styles/subsilver2_dead_topics
+      - ${INTEGRATION_ROOT}/php-static-files/static.php:/var/www/html/phpBB3/styles/subsilver2_dead_topics/template/common/static.php
+      - ${INTEGRATION_ROOT}/php-static-files/cache.php:/var/www/html/php-static-files/cache.php
+      - ${INTEGRATION_ROOT}/../conf/settings.php:/var/www/conf/settings.php
     depends_on:
       - db
+      - memcached
 
 volumes:
   mysql_data:
