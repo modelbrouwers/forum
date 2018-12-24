@@ -35,13 +35,15 @@ services:
     volumes:
       - ./phpBB3:/var/www/html/phpBB3
       - ${INTEGRATION_ROOT}:/var/brouwers
+
+      - ${INTEGRATION_ROOT}src/phpbb:/var/www/html/phpBB3/src/phpbb
+      - ${INTEGRATION_ROOT}src/templates:/var/www/html/phpBB3/src/templates
+      - ${INTEGRATION_ROOT}src/conf/settings.php:/var/www/html/phpBB3/src/conf/settings.php
+
       - ${INTEGRATION_ROOT}src/phpbb/phpBB3/includes/auth/auth_django.php:/var/www/html/phpBB3/includes/auth/auth_django.php
       - ${INTEGRATION_ROOT}src/phpbb/phpBB3/includes/auth/getdjangouser.php:/var/www/html/phpBB3/includes/auth/getdjangouser.php
       - ${INTEGRATION_ROOT}src/phpbb/phpBB3/styles/subsilver2_dead_topics:/var/www/html/phpBB3/styles/subsilver2_dead_topics
-      - ${INTEGRATION_ROOT}src/phpbb/php-static-files/static.php:/var/www/html/phpBB3/styles/subsilver2_dead_topics/template/common/static.php
-      - ${INTEGRATION_ROOT}src/phpbb/php-static-files/cache.php:/var/www/html/php-static-files/cache.php
-      - ${INTEGRATION_ROOT}src/conf/settings.php:/var/www/conf/settings.php
-      - ${INTEGRATION_ROOT}vendor:/var/www/html/vendor
+
     depends_on:
       - db
       - memcached
