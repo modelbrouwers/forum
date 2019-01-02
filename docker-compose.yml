@@ -35,6 +35,7 @@ services:
     volumes:
       - ./phpBB3:/var/www/html/phpBB3
       - ${INTEGRATION_ROOT}:/var/brouwers
+      - ${INTEGRATION_ROOT}static:/var/www/html/static
 
       - ${INTEGRATION_ROOT}src/phpbb:/var/www/html/phpBB3/src/phpbb
       - ${INTEGRATION_ROOT}src/templates:/var/www/html/phpBB3/src/templates
