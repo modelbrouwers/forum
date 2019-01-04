@@ -20,6 +20,7 @@ services:
     ports:
       - 80:80
     environment:
+      - DEBUG=1
       - DB_HOST=${DB_HOST:-db}
       - DB_NAME=${DB_NAME:-forum}
       - DB_USER=${DB_USER:-root}
